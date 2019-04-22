@@ -2,6 +2,7 @@ package com.chinasofti.bms.service;
 
 import java.util.List;
 
+import com.chinasofti.bms.domain.BorrowBook;
 import com.chinasofti.bms.domain.Reader;
 
 public interface ReaderService {
@@ -41,5 +42,16 @@ public interface ReaderService {
 	 * @return
 	 */
 	public boolean deleteReader(int id);
+	/**
+	 * 借阅图书
+	 * @param reader
+	 * @return
+	 */
 	public boolean borrowBook(Reader reader);
+	/**
+	 * 归还图书
+	 * @param reader
+	 * @return
+	 */
+	public boolean returnBook(BorrowBook borrowBook);
 }

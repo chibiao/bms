@@ -59,7 +59,15 @@ public class ReaderDaoImpl implements ReaderDao {
 
 	public Reader getReaderById(int id) throws SQLException {
 		String sql="select * from reader where rid=?";
-		return qr.query(sql, new BeanHandler<Reader>(Reader.class),id);
+		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class),id);
+		String sql2 = "select * from readertype where tid=?";
+		String sql3 = "select * from borrowbook where rid=?";
+		reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+				ReaderType.class), reader.getTid()));
+		reader.setBorrowBook(qr.query(sql3,
+				new BeanListHandler<BorrowBook>(BorrowBook.class),
+				reader.getRid()));
+		return reader;
 	}
 
 }

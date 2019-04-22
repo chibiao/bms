@@ -23,6 +23,7 @@ public class TotalServiceImpl implements TotalService {
 	private BookDao bookDao = new BookDaoImpl();
 	private UserDao userDao = new UserDaoImpl();
 	private BorrowBookDao borrowBookDao = new BorrowBookDaoImpl();
+	
 	/**
 	 * 读者登录服务
 	 */
@@ -208,9 +209,9 @@ public class TotalServiceImpl implements TotalService {
 				if(borrowBookDao.getBorrowBooksByRidAndBid(reader.getRid(), borrowBook2.getBid())==null){
 					Book book = bookDao.getBookById(borrowBook2.getBid());
 					if(book.getBnumber()-1>=0){
+						borrowBookDao.insertBorrowBook(borrowBook2);
 						book.setBnumber(book.getBnumber()-1);
 						bookDao.updateBook(book);
-						borrowBookDao.insertBorrowBook(borrowBook2);
 						return true;
 					}else{
 						return false;
@@ -221,5 +222,24 @@ public class TotalServiceImpl implements TotalService {
 			}
 		}
 		return false;
+	}
+	public boolean returnBook(BorrowBook borrowBook) {
+		try {
+			borrowBookDao.updateBorrowBook(borrowBook);
+			Book book = bookDao.getBookById(borrowBook.getBid());
+			book.setBnumber(book.getBnumber()+1);
+			bookDao.updateBook(book);
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
+	}
+	public BorrowBook getBorrowBookById(int rid,int bid) {
+		try {
+			return borrowBookDao.getBorrowBooksByRidAndBid(rid, bid);
+		} catch (SQLException e) {
+			return null;
+		}
+		
 	}
 }

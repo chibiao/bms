@@ -3,6 +3,7 @@ package com.chinasofti.bms.service;
 import java.util.List;
 
 import com.chinasofti.bms.domain.Book;
+import com.chinasofti.bms.domain.BorrowBook;
 
 public interface BookService {
 	// 查询所有图书
@@ -25,4 +26,5 @@ public interface BookService {
 
 	// 修改书籍
 	Boolean updateBook(Book book);
+	BorrowBook getBorrowBookById(int rid,int bid);
 }
