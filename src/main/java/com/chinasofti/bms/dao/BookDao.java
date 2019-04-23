@@ -34,5 +34,11 @@ public interface BookDao {
 	 * 通过图书名称查询图书
 	 */
 	public List<Book> getBooksByName(String bname)throws SQLException;
+	/**
+	 * 获取最后一本添加的图书
+	 * @return
+	 * @throws SQLException
+	 */
+	public Book getLastBook()throws SQLException;
 	
 }

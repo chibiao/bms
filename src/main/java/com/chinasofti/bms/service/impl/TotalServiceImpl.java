@@ -111,6 +111,7 @@ public class TotalServiceImpl implements TotalService {
 		try {
 			bookDao.insertBook(book);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -126,6 +127,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 获取所有读者
+	 */
 	public List<Reader> getAllReader() {
 		try {
 			return readerDao.getAllReader();
@@ -133,6 +137,9 @@ public class TotalServiceImpl implements TotalService {
 			return null;
 		}
 	}
+	/**
+	 * 通过读者编号查询
+	 */
 	public Reader getReaderById(int id) {
 		try {
 			return readerDao.getReaderById(id);
@@ -140,6 +147,9 @@ public class TotalServiceImpl implements TotalService {
 			return null;
 		}
 	}
+	/**
+	 * 添加读者
+	 */
 	public boolean addReader(Reader reader) {
 		try {
 			readerDao.insertReader(reader);
@@ -148,6 +158,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 修改读者
+	 */
 	public boolean updateReader(Reader reader) {
 		try {
 			readerDao.updateReader(reader);
@@ -156,6 +169,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 删除读者
+	 */
 	public boolean deleteReader(int id) {
 		try {
 			readerDao.deleteReaderById(id);
@@ -164,6 +180,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 获取所有管理员
+	 */
 	public List<User> getAllUser() {
 		try {
 			return userDao.getAllUser();
@@ -171,6 +190,9 @@ public class TotalServiceImpl implements TotalService {
 			return null;
 		}
 	}
+	/**
+	 * 通过id查询管理员
+	 */
 	public User getUserById(int id) {
 		try {
 			return userDao.getUserById(id);
@@ -178,6 +200,9 @@ public class TotalServiceImpl implements TotalService {
 			return null;
 		}
 	}
+	/**
+	 * 更新管理员信息
+	 */
 	public boolean updateUser(User user) {
 		try {
 			userDao.updateUser(user);
@@ -186,6 +211,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 添加管理员
+	 */
 	public boolean addUser(User user) {
 		try {
 			userDao.insertUser(user);
@@ -194,6 +222,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 删除管理员
+	 */
 	public boolean deleteUser(int id) {
 		try {
 			userDao.deleteUserById(id);
@@ -202,6 +233,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 读者借阅图书
+	 */
 	public boolean borrowBook(Reader reader) {
 		List<BorrowBook> borrowBook = reader.getBorrowBook();
 		for (BorrowBook borrowBook2 : borrowBook) {
@@ -224,6 +258,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return false;
 	}
+	/**
+	 * 归还图书
+	 */
 	public boolean returnBook(BorrowBook borrowBook) {
 		try {
 			borrowBookDao.deleteBorrowBookByRidAndBid(borrowBook.getRid(), borrowBook.getBid());
@@ -235,6 +272,9 @@ public class TotalServiceImpl implements TotalService {
 		}
 		return true;
 	}
+	/**
+	 * 通过读者编号和图书编号查询借阅信息
+	 */
 	public BorrowBook getBorrowBookById(int rid,int bid) {
 		try {
 			return borrowBookDao.getBorrowBooksByRidAndBid(rid, bid);
@@ -243,4 +283,46 @@ public class TotalServiceImpl implements TotalService {
 		}
 		
 	}
+	/**
+	 * 批量添加读者
+	 */
+	public boolean batchAddReader(int count,int readerType) {
+		Reader reader = new Reader();
+		reader.setMoney(100.0);
+		reader.setPassword("123456");
+		reader.setTid(readerType);
+		for (int i = 0; i < count; i++) {
+			try {
+				readerDao.insertReader(reader);
+			} catch (SQLException e) {
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * 获取最后插入的读者
+	 */
+	public Reader getLastReader() {
+		try {
+			return readerDao.getLastReader();
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	public List<Reader> getLastReader(int count) {
+		try {
+			return readerDao.getLastReader(count);
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	public Book getLastBook() {
+		try {
+			return bookDao.getLastBook();
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	
 }

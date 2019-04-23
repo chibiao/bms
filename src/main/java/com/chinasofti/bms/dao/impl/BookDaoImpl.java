@@ -45,7 +45,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	public void insertBook(Book book) throws SQLException {
-		String sql = "insert into book set btid=?,bname=?,author=?,publish=?,bnumber=?,price=?";
+		String sql = "insert into book(btid,bname,author,publish,bnumber,price) values(?,?,?,?,?,?)";
 		qr.update(sql, book.getBtid(), book.getBname(), book.getAuthor(),
 				book.getPublish(), book.getBnumber(), book.getPrice());
 	}
@@ -65,12 +65,25 @@ public class BookDaoImpl implements BookDao {
 		String sql = "select * from book where bname=?";
 		List<Book> books = qr.query(sql, new BeanListHandler<Book>(Book.class),
 				bname);
-		for (Book book : books) {
+		if (books != null) {
+			for (Book book : books) {
+				String sql2 = "select * from booktype where btid=?";
+				book.setBookType(qr.query(sql2, new BeanHandler<BookType>(
+						BookType.class), book.getBtid()));
+			}
+		}
+		return books;
+	}
+
+	public Book getLastBook() throws SQLException {
+		String sql = "select * from book where bid=((SELECT MAX(BID) FROM book))";
+		Book book = qr.query(sql, new BeanHandler<Book>(Book.class));
+		if(book!=null){
 			String sql2 = "select * from booktype where btid=?";
 			book.setBookType(qr.query(sql2, new BeanHandler<BookType>(
 					BookType.class), book.getBtid()));
 		}
-		return books;
+		return book;
 	}
 
 }

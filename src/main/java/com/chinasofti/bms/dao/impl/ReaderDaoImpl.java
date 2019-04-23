@@ -18,23 +18,9 @@ public class ReaderDaoImpl implements ReaderDao {
 
 	public Reader getReader(int rid, String password) throws SQLException {
 		String sql = "select * from reader where rid=? and password=?";
-		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class), rid,
-				password);
-		String sql2 = "select * from readertype where tid=?";
-		String sql3 = "select * from borrowbook where rid=?";
-		reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
-				ReaderType.class), reader.getTid()));
-		reader.setBorrowBook(qr.query(sql3,
-				new BeanListHandler<BorrowBook>(BorrowBook.class),
-				reader.getRid()));
-		return reader;
-	}
-
-	public List<Reader> getAllReader() throws SQLException {
-		String sql = "select * from reader";
-		List<Reader> readers = qr.query(sql, new BeanListHandler<Reader>(
-				Reader.class));
-		for (Reader reader : readers) {
+		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class),
+				rid, password);
+		if (reader != null) {
 			String sql2 = "select * from readertype where tid=?";
 			String sql3 = "select * from borrowbook where rid=?";
 			reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
@@ -42,6 +28,24 @@ public class ReaderDaoImpl implements ReaderDao {
 			reader.setBorrowBook(qr.query(sql3,
 					new BeanListHandler<BorrowBook>(BorrowBook.class),
 					reader.getRid()));
+		}
+		return reader;
+	}
+
+	public List<Reader> getAllReader() throws SQLException {
+		String sql = "select * from reader";
+		List<Reader> readers = qr.query(sql, new BeanListHandler<Reader>(
+				Reader.class));
+		if (readers != null) {
+			for (Reader reader : readers) {
+				String sql2 = "select * from readertype where tid=?";
+				String sql3 = "select * from borrowbook where rid=?";
+				reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+						ReaderType.class), reader.getTid()));
+				reader.setBorrowBook(qr.query(sql3,
+						new BeanListHandler<BorrowBook>(BorrowBook.class),
+						reader.getRid()));
+			}
 		}
 		return readers;
 	}
@@ -55,27 +59,68 @@ public class ReaderDaoImpl implements ReaderDao {
 		String sql = "update reader set tid=?,rname=?,age=?,sex=?,phone=?,dept=?,password=?,money=? where rid=?";
 		qr.update(sql, reader.getTid(), reader.getRname(), reader.getAge(),
 				reader.getSex(), reader.getPhone(), reader.getDept(),
-				reader.getPassword(),reader.getMoney(), reader.getRid());
+				reader.getPassword(), reader.getMoney(), reader.getRid());
 	}
 
 	public void insertReader(Reader reader) throws SQLException {
-		String sql="insert into reader(tid,rname,age,sex,phone,dept,password) values(?,?,?,?,?,?,?)";
-		qr.update(sql,reader.getTid(), reader.getRname(), reader.getAge(),
+		String sql = "insert into reader(tid,rname,age,sex,phone,dept,password,money) values(?,?,?,?,?,?,?,?)";
+		qr.update(sql, reader.getTid(), reader.getRname(), reader.getAge(),
 				reader.getSex(), reader.getPhone(), reader.getDept(),
-				reader.getPassword());
+				reader.getPassword(),reader.getMoney());
 	}
 
 	public Reader getReaderById(int id) throws SQLException {
-		String sql="select * from reader where rid=?";
-		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class),id);
-		String sql2 = "select * from readertype where tid=?";
-		String sql3 = "select * from borrowbook where rid=?";
-		reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
-				ReaderType.class), reader.getTid()));
-		reader.setBorrowBook(qr.query(sql3,
-				new BeanListHandler<BorrowBook>(BorrowBook.class),
-				reader.getRid()));
+		String sql = "select * from reader where rid=?";
+		Reader reader = qr
+				.query(sql, new BeanHandler<Reader>(Reader.class), id);
+		if (reader != null) {
+			String sql2 = "select * from readertype where tid=?";
+			String sql3 = "select * from borrowbook where rid=?";
+			reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+					ReaderType.class), reader.getTid()));
+			reader.setBorrowBook(qr.query(sql3,
+					new BeanListHandler<BorrowBook>(BorrowBook.class),
+					reader.getRid()));
+		}
 		return reader;
+	}
+
+	public Reader getLastReader() throws SQLException {
+		String sql = "select * from reader where rid=(SELECT MAX(RID) FROM READER)";
+		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class));
+		if (reader != null) {
+			String sql2 = "select * from readertype where tid=?";
+			String sql3 = "select * from borrowbook where rid=?";
+			reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+					ReaderType.class), reader.getTid()));
+			reader.setBorrowBook(qr.query(sql3,
+					new BeanListHandler<BorrowBook>(BorrowBook.class),
+					reader.getRid()));
+		}
+		return reader;
+	}
+
+	/**
+	 * 获取最后count个读者
+	 * 
+	 * @throws SQLException
+	 */
+	public List<Reader> getLastReader(int count) throws SQLException {
+		String sql = "select * from reader where rid>(SELECT MAX(RID-?) FROM READER)";
+		List<Reader> readers = qr.query(sql, new BeanListHandler<Reader>(
+				Reader.class), (count));
+		if (readers != null) {
+			for (Reader reader : readers) {
+				String sql2 = "select * from readertype where tid=?";
+				String sql3 = "select * from borrowbook where rid=?";
+				reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+						ReaderType.class), reader.getTid()));
+				reader.setBorrowBook(qr.query(sql3,
+						new BeanListHandler<BorrowBook>(BorrowBook.class),
+						reader.getRid()));
+			}
+		}
+		return readers;
 	}
 
 }

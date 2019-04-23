@@ -31,5 +31,23 @@ public interface ReaderDao {
 	 * 添加读者信息
 	 */
 	void insertReader(Reader reader)throws SQLException;
+	/**
+	 * 根据读者编号查询读者
+	 * @param id 读者编号
+	 * @return
+	 * @throws SQLException
+	 */
 	Reader getReaderById(int id)throws SQLException;
+	/**
+	 * 查询最后插入的读者
+	 * @return
+	 * @throws SQLException
+	 */
+	Reader getLastReader()throws SQLException;
+	/** 
+	 *  查询最后count的读者
+	 * @param count 数量
+	 * @return
+	 */
+	List<Reader> getLastReader(int count)throws SQLException;
 }

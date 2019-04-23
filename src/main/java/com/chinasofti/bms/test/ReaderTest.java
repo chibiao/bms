@@ -8,10 +8,13 @@ import org.junit.Test;
 import com.chinasofti.bms.dao.ReaderDao;
 import com.chinasofti.bms.dao.impl.ReaderDaoImpl;
 import com.chinasofti.bms.domain.Reader;
+import com.chinasofti.bms.service.TotalService;
+import com.chinasofti.bms.service.impl.TotalServiceImpl;
 
 public class ReaderTest {
 	private Reader reader = new Reader();
 	private ReaderDao readerDao = new ReaderDaoImpl();
+	private TotalService totalService = new TotalServiceImpl();
 	@Test
 	public void test() {
 		try {
@@ -58,5 +61,12 @@ public class ReaderTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	@Test
+	public void test6(){
+		//totalService.batchAddReader(10,1);
+		Reader reader1 = totalService.getLastReader();
+		System.out.println(reader1);
+		
 	}
 }

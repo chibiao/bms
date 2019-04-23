@@ -60,4 +60,9 @@ public interface BookService {
 	 * @return
 	 */
 	BorrowBook getBorrowBookById(int rid,int bid);
+	/**
+	 * 获取最后一个插入的图书
+	 * @return
+	 */
+	Book getLastBook();
 }
