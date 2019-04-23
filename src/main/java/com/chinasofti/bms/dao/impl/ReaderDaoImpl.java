@@ -18,8 +18,16 @@ public class ReaderDaoImpl implements ReaderDao {
 
 	public Reader getReader(int rid, String password) throws SQLException {
 		String sql = "select * from reader where rid=? and password=?";
-		return qr.query(sql, new BeanHandler<Reader>(Reader.class), rid,
+		Reader reader = qr.query(sql, new BeanHandler<Reader>(Reader.class), rid,
 				password);
+		String sql2 = "select * from readertype where tid=?";
+		String sql3 = "select * from borrowbook where rid=?";
+		reader.setReadType(qr.query(sql2, new BeanHandler<ReaderType>(
+				ReaderType.class), reader.getTid()));
+		reader.setBorrowBook(qr.query(sql3,
+				new BeanListHandler<BorrowBook>(BorrowBook.class),
+				reader.getRid()));
+		return reader;
 	}
 
 	public List<Reader> getAllReader() throws SQLException {
@@ -44,10 +52,10 @@ public class ReaderDaoImpl implements ReaderDao {
 	}
 
 	public void updateReader(Reader reader) throws SQLException {
-		String sql = "update reader set tid=?,rname=?,age=?,sex=?,phone=?,dept=?,password=? where rid=?";
+		String sql = "update reader set tid=?,rname=?,age=?,sex=?,phone=?,dept=?,password=?,money=? where rid=?";
 		qr.update(sql, reader.getTid(), reader.getRname(), reader.getAge(),
 				reader.getSex(), reader.getPhone(), reader.getDept(),
-				reader.getPassword(), reader.getRid());
+				reader.getPassword(),reader.getMoney(), reader.getRid());
 	}
 
 	public void insertReader(Reader reader) throws SQLException {

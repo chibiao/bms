@@ -41,4 +41,12 @@ public interface BorrowBookDao {
 	 * @return
 	 */
 	BorrowBook getBorrowBooksByRidAndBid(int rid,int bid)throws SQLException;
+	/**
+	 * 根据读者编号和图书编号删除借阅信息
+	 * @param rid
+	 * @param bid
+	 * @return
+	 * @throws SQLException
+	 */
+	void deleteBorrowBookByRidAndBid(int rid,int bid)throws SQLException;
 }

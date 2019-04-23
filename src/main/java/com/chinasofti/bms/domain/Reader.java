@@ -24,6 +24,7 @@ public class Reader implements Serializable{
 	private String phone; // 读者电话
 	private String dept; // 所在系部
 	private String password; //读者密码
+	private Double money; //读者卡上余额
 	private ReaderType readType;	//读者类型
 	private List<BorrowBook> borrowBook;	//读者借阅信息
 

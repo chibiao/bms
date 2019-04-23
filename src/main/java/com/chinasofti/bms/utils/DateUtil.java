@@ -2,7 +2,11 @@ package com.chinasofti.bms.utils;
 
 import java.sql.Date;
 import java.util.Calendar;
-
+/**
+ * 这是一个处理时间的工具类
+ * @author 迟彪
+ *
+ */
 public class DateUtil {
 	/**
 	 * 获取当前时间

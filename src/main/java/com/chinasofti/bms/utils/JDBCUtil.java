@@ -13,7 +13,11 @@ import javax.sql.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
-//jdbc连接工具类
+/**
+ * 这是一个通过druid连接池连接数据库的工具类
+ * @author 迟彪
+ *
+ */
 public class JDBCUtil {
 	public static DataSource ds = null;
 	static {
@@ -47,7 +51,7 @@ public class JDBCUtil {
 		return null;
 	}*/
 
-	public static void close(Connection conn, Statement st, ResultSet res) {
+	/*public static void close(Connection conn, Statement st, ResultSet res) {
 		if (res != null) {
 			try {
 				res.close();
@@ -72,5 +76,5 @@ public class JDBCUtil {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 }

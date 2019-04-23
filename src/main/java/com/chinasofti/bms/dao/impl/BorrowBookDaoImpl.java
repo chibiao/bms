@@ -49,4 +49,10 @@ public class BorrowBookDaoImpl implements BorrowBookDao {
 		return qr.query(sql, new BeanHandler<BorrowBook>(BorrowBook.class),rid,bid);
 	}
 
+	public void deleteBorrowBookByRidAndBid(int rid, int bid)
+			throws SQLException {
+		String sql="delete from borrowbook where rid=? and bid=?";
+		qr.update(sql,rid,bid);
+	}
+
 }
