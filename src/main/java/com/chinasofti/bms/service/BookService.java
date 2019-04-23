@@ -3,6 +3,7 @@ package com.chinasofti.bms.service;
 import java.util.List;
 
 import com.chinasofti.bms.domain.Book;
+import com.chinasofti.bms.domain.BookType;
 import com.chinasofti.bms.domain.BorrowBook;
 
 public interface BookService {
@@ -65,4 +66,9 @@ public interface BookService {
 	 * @return
 	 */
 	Book getLastBook();
+	/**
+	 * 获取所有图书类型
+	 * @return
+	 */
+	List<BookType> getAllBookType();
 }

@@ -15,20 +15,28 @@ public interface ReaderDao {
 	 * 		根据id和密码查询读者
 	 */
 	Reader getReader(int rid,String password) throws SQLException;
-	/*
+	/**
 	 * 获取所有读者信息
+	 * @return
+	 * @throws SQLException
 	 */
 	List<Reader> getAllReader()throws SQLException;
-	/*
+	/**
 	 * 删除读者信息
+	 * @param id
+	 * @throws SQLException
 	 */
 	void deleteReaderById(int id)throws SQLException;
-	/*
+	/**
 	 * 修改读者信息
+	 * @param reader
+	 * @throws SQLException
 	 */
 	void updateReader(Reader reader)throws SQLException;
-	/*
+	/**
 	 * 添加读者信息
+	 * @param reader
+	 * @throws SQLException
 	 */
 	void insertReader(Reader reader)throws SQLException;
 	/**

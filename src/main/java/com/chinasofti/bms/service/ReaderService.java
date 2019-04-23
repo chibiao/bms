@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chinasofti.bms.domain.BorrowBook;
 import com.chinasofti.bms.domain.Reader;
+import com.chinasofti.bms.domain.ReaderType;
 
 public interface ReaderService {
 	/**
@@ -29,6 +30,11 @@ public interface ReaderService {
 	 * @return
 	 */
 	public Reader getLastReader();
+	/**
+	 * 获取最后count条数据
+	 * @param count
+	 * @return
+	 */
 	public List<Reader> getLastReader(int count);
 	/**
 	 * 添加读者
@@ -67,4 +73,10 @@ public interface ReaderService {
 	 * @return
 	 */
 	public boolean returnBook(BorrowBook borrowBook);
+	/**
+	 * 获取所有的读者类型
+	 * @return
+	 */
+	public List<ReaderType> getAllReadType();
+	
 }
