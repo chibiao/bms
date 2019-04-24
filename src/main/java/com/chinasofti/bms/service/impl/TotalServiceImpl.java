@@ -110,7 +110,7 @@ public class TotalServiceImpl implements TotalService {
 	/**
 	 * 通过图书id删除图书
 	 */
-	public Boolean deleteBook(Integer id) {
+	public boolean deleteBook(Integer id) {
 		try {
 			bookDao.deleteBookById(id);
 		} catch (SQLException e) {
@@ -122,11 +122,10 @@ public class TotalServiceImpl implements TotalService {
 	/**
 	 * 添加图书
 	 */
-	public Boolean addBook(Book book) {
+	public boolean addBook(Book book) {
 		try {
 			bookDao.insertBook(book);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -135,7 +134,7 @@ public class TotalServiceImpl implements TotalService {
 	/**
 	 * 修改图书
 	 */
-	public Boolean updateBook(Book book) {
+	public boolean updateBook(Book book) {
 		try {
 			bookDao.updateBook(book);
 		} catch (SQLException e) {
@@ -378,5 +377,19 @@ public class TotalServiceImpl implements TotalService {
 		} catch (SQLException e) {
 			return null;
 		}
+	}
+
+	public boolean insertBatchBook(List<Book> books) {
+		if(books!=null){
+			for (Book book : books) {
+				try {
+					bookDao.insertBook(book);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 }

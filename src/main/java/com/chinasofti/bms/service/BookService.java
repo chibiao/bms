@@ -39,21 +39,21 @@ public interface BookService {
 	 * @param id
 	 * @return
 	 */
-	Boolean deleteBook(Integer id);
+	boolean deleteBook(Integer id);
 
 	/**
 	 * 添加书籍
 	 * @param book
 	 * @return
 	 */
-	Boolean addBook(Book book);
+	boolean addBook(Book book);
 
 	/**
 	 * 修改书籍
 	 * @param book
 	 * @return
 	 */
-	Boolean updateBook(Book book);
+	boolean updateBook(Book book);
 	/**
 	 * 通过读者编号和图书编号查询借阅信息
 	 * @param rid
@@ -71,4 +71,10 @@ public interface BookService {
 	 * @return
 	 */
 	List<BookType> getAllBookType();
+	/**
+	 * 批量导入图书信息
+	 * @param books
+	 * @return
+	 */
+	boolean insertBatchBook(List<Book> books);
 }
