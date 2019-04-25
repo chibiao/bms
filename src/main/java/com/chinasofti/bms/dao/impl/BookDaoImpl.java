@@ -62,9 +62,9 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	public List<Book> getBooksByName(String bname) throws SQLException {
-		String sql = "select * from book where bname=?";
+		String sql = "select * from book where bname like ?";
 		List<Book> books = qr.query(sql, new BeanListHandler<Book>(Book.class),
-				bname);
+				"%"+bname+"%");
 		if (books != null) {
 			for (Book book : books) {
 				String sql2 = "select * from booktype where btid=?";

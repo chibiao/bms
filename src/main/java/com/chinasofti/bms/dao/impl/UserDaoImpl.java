@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	public void updateUser(User user) throws SQLException {
-		String sql="update manager set uname=?,`password`=? where mid=?";
+		String sql="update manager set uname=?,password=? where mid=?";
 		qr.update(sql, user.getUname(),user.getPassword(),user.getMid());
 	}
 

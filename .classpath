@@ -20,6 +20,12 @@
 	<classpathentry kind="lib" path="/JDBCTest3/lib/commons-dbutils-1.4.jar"/>
 	<classpathentry kind="lib" path="/JDBCTest3/lib/druid-1.0.15.jar"/>
 	<classpathentry kind="lib" path="ojdbc6.jar"/>
+	<classpathentry kind="lib" path="lib/poi-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-examples-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-4.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lombok"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>

@@ -2,17 +2,24 @@ package com.chinasofti.bms.test;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
 import com.chinasofti.bms.domain.Book;
 import com.chinasofti.bms.service.TotalService;
 import com.chinasofti.bms.service.impl.TotalServiceImpl;
+import com.chinasofti.bms.utils.ExeclUtil;
 import com.chinasofti.bms.utils.StringUtil;
 
 public class IOTest {
@@ -20,8 +27,8 @@ public class IOTest {
 
 	@Test
 	public void test() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("a.txt"));
-		Book book = new Book();
+		BufferedReader br = new BufferedReader(new FileReader("a.xls"));
+		/*Book book = new Book();
 		List<Book> list = new ArrayList<Book>();
 		String line = null;
 		while ((line = br.readLine()) != null) {
@@ -42,6 +49,10 @@ public class IOTest {
 			if (line.equals("---")) {
 				list.add(book);
 			}
+		}*/
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			System.out.println(line);
 		}
 		br.close();
 	}
@@ -65,5 +76,39 @@ public class IOTest {
 			bw.flush();
 		}
 		bw.close();
+	}
+	@Test
+	public void test3() throws Exception {
+		List<Book> li = new ArrayList<Book>();
+		List<Book> allBooks = totalService.getAllBooks();
+		for (Book book : allBooks) {
+			li.add(book);
+		}
+		OutputStream out = new FileOutputStream("d://aa.xls");
+		Map<String, String> fields = new HashMap<String, String>();
+		fields.put("bid", "图书编号");
+		fields.put("btid", "图书类型编号");
+		fields.put("bname", "图书名称");
+		fields.put("author", "图书作者");
+		fields.put("publish", "出版社");
+		fields.put("bnumber", "图书数量");
+		fields.put("price", "图书价格");
+		ExeclUtil.ListtoExecl(li, out, fields);
+		out.close();
+	}
+	@Test
+	public void test4() throws Exception{
+		Map<String, String> fields = new HashMap<String, String>();
+		InputStream in =new FileInputStream("d://aa.xls");
+		fields.put("图书类型编号", "btid");
+		fields.put("图书名称", "bname");
+		fields.put("图书作者", "author");
+		fields.put("出版社", "publish");
+		fields.put("图书数量", "bnumber");
+		fields.put("图书价格", "price");
+		List<Book> books = ExeclUtil.ExecltoList(in, Book.class, fields);
+		for (Book book : books) {
+			System.out.println(book);
+		}
 	}
 }

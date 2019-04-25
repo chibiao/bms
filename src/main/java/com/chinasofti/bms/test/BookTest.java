@@ -36,15 +36,15 @@ public class BookTest {
 		for (Book book : allBooks) {
 			System.out.println(book);
 		}*/
-		Book book = bookService.getBooksById(1);
+		//Book book = bookService.getBooksById(1);
 		//System.out.println(booksById);
-		/*List<Book> booksByName = bookService.getBooksByName("骆驼祥子");
-		System.out.println(booksByName);*/
+		List<Book> booksByName = bookService.getBooksByName("骆驼");
+		System.out.println(booksByName);
 //		List<Book> booksByTypeId = bookService.getBooksByTypeId(2);
 //		System.out.println(booksByTypeId);
-		System.out.println("图书编号\t\t图书类型编号\t图书名称\t\t出版社\t\t作者\t\t数量\t\t价格");
+		/*System.out.println("图书编号\t\t图书类型编号\t图书名称\t\t出版社\t\t作者\t\t数量\t\t价格");
 		System.out.println(book.getBid()+"\t\t"+book.getBtid()+"\t\t"+book.getBname()+"\t\t"+
-		book.getPublish()+"\t"+book.getAuthor()+"\t\t"+book.getBnumber()+"\t\t"+book.getPrice());
+		book.getPublish()+"\t"+book.getAuthor()+"\t\t"+book.getBnumber()+"\t\t"+book.getPrice());*/
 		
 	}
 	@Test
