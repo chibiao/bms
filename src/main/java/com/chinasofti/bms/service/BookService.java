@@ -77,4 +77,8 @@ public interface BookService {
 	 * @return
 	 */
 	boolean insertBatchBook(List<Book> books);
+	boolean addBookType(BookType bookType);
+	boolean updateBookType(BookType bookType);
+	boolean deleteBookType(int btid);
+
 }

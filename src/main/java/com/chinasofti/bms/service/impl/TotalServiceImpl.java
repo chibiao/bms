@@ -217,7 +217,15 @@ public class TotalServiceImpl implements TotalService {
 	 */
 	public User getUserById(int id) {
 		try {
-			return userDao.getUserById(id);
+			if (userDao.getUserById(id) != null) {
+				if ("admin".equals(userDao.getUserById(id).getUname())) {
+					return null;
+				}else{
+					return userDao.getUserById(id);
+				}
+			}else{
+				return null;
+			}
 		} catch (SQLException e) {
 			return null;
 		}
@@ -252,11 +260,19 @@ public class TotalServiceImpl implements TotalService {
 	 */
 	public boolean deleteUser(int id) {
 		try {
-			userDao.deleteUserById(id);
+			if(userDao.getUserById(id)!=null){
+				if (userDao.getUserById(id).getUname().equals("admin")) {
+					return false;
+				} else {
+					userDao.deleteUserById(id);
+					return true;
+				}
+			}else{
+				return true;
+			}
 		} catch (SQLException e) {
 			return false;
 		}
-		return true;
 	}
 
 	/**
@@ -363,7 +379,7 @@ public class TotalServiceImpl implements TotalService {
 		}
 	}
 
-	public List<BookType>  getAllBookType(){
+	public List<BookType> getAllBookType() {
 		try {
 			return bookTypeDao.getAllBookType();
 		} catch (SQLException e) {
@@ -380,7 +396,7 @@ public class TotalServiceImpl implements TotalService {
 	}
 
 	public boolean insertBatchBook(List<Book> books) {
-		if(books!=null){
+		if (books != null) {
 			for (Book book : books) {
 				try {
 					bookDao.insertBook(book);
@@ -391,5 +407,33 @@ public class TotalServiceImpl implements TotalService {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean addBookType(BookType bookType) {
+		try {
+			bookTypeDao.insertBookType(bookType);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+	public boolean updateBookType(BookType bookType) {
+		try {
+			bookTypeDao.updateBookType(bookType);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+	public boolean deleteBookType(int btid) {
+		try {
+			bookTypeDao.deleteBookTypeById(btid);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+
 	}
 }

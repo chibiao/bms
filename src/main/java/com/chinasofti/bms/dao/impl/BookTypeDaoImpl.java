@@ -33,4 +33,5 @@ public class BookTypeDaoImpl implements BookTypeDao {
 		qr.update(sql, bookType.getTypename());
 	}
 
+
 }
